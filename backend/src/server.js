@@ -3,6 +3,12 @@ import cors from 'cors'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import healthRoutes from './routes/health.js'
+import peopleRoutes from './routes/people.js'
+import householdsRoutes from './routes/households.js'
+import eventsRoutes from './routes/events.js'
+import giftsRoutes from './routes/gifts.js'
+import cardsRoutes from './routes/cards.js'
+import importRoutes from './routes/import.js'
 import { initDatabase } from './db/initDb.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -23,6 +29,12 @@ initDatabase().catch(err => {
 
 // API routes
 app.use('/api', healthRoutes)
+app.use('/api/people', peopleRoutes)
+app.use('/api/households', householdsRoutes)
+app.use('/api/events', eventsRoutes)
+app.use('/api/gifts', giftsRoutes)
+app.use('/api/cards', cardsRoutes)
+app.use('/api/import', importRoutes)
 
 // Serve static files from React build (in production)
 if (process.env.NODE_ENV === 'production') {
