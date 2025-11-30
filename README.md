@@ -35,6 +35,49 @@ This is an experimental application focused on:
 - Quick data entry and correction
 - Simple, conversation-driven iteration
 
+## Getting Started
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- Git (for cloning the repository)
+
+### Running the Application
+
+1. **Start the application**:
+   ```bash
+   docker compose up -d
+   ```
+
+2. **Access the application**:
+   - Frontend: http://localhost:8080
+   - API Health Check: http://localhost:8080/api/health
+
+3. **Stop the application**:
+   ```bash
+   docker compose down
+   ```
+
+4. **View logs**:
+   ```bash
+   docker compose logs -f app
+   ```
+
+### Development
+
+The application uses:
+- **Frontend**: React with Vite
+- **Backend**: Node.js with Express
+- **Database**: PostgreSQL 15
+
+The database schema is automatically initialized on first startup.
+
+### Environment Variables
+
+Default values are set in `docker-compose.yml`. For production, update:
+- `API_KEY`: Change from default value
+- `POSTGRES_PASSWORD`: Use a strong password
+
 ---
 
 *Built for tracking Christmas 2025 and New Year 2026 holiday activities.*
