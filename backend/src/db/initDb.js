@@ -14,27 +14,34 @@ export async function initDatabase() {
     const migrationPath = path.join(__dirname, 'migrations', '001_initial_schema.sql')
     const sql = fs.readFileSync(migrationPath, 'utf8')
     
-    // Split SQL into individual statements
-    // Remove comments and split by semicolon, but keep multi-line statements intact
-    const statements = sql
+    // Remove comments (lines starting with --)
+    const cleanedSql = sql
+      .split('\n')
+      .filter(line => !line.trim().startsWith('--'))
+      .join('\n')
+    
+    // Split SQL into individual statements by semicolon
+    const statements = cleanedSql
       .split(';')
       .map(s => s.trim())
-      .filter(s => s.length > 0 && !s.startsWith('--'))
+      .filter(s => s.length > 0)
     
     // Execute each statement
     for (const statement of statements) {
       if (statement.trim()) {
         try {
-          await pool.query(statement + ';')
+          await pool.query(statement)
         } catch (error) {
           // Ignore "already exists" errors (table/index already created)
           if (error.code === '42P07' || // duplicate_table
               error.code === '42710' || // duplicate_object
+              error.code === '42P16' || // duplicate_index
               error.message.includes('already exists')) {
             // Silently skip - table/index already exists
             continue
           } else {
-            console.error('Error executing statement:', statement.substring(0, 50) + '...')
+            console.error('Error executing statement:', statement.substring(0, 100) + '...')
+            console.error('Error code:', error.code, 'Message:', error.message)
             throw error
           }
         }

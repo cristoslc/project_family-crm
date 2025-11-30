@@ -4,7 +4,7 @@
 FROM node:18-alpine AS frontend-builder
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm install
 COPY frontend/ ./
 RUN npm run build
 
@@ -12,7 +12,7 @@ RUN npm run build
 FROM node:18-alpine AS backend-builder
 WORKDIR /app/backend
 COPY backend/package*.json ./
-RUN npm ci
+RUN npm install
 COPY backend/ ./
 # Copy frontend build into backend public directory
 COPY --from=frontend-builder /app/frontend/build ./public
@@ -23,6 +23,6 @@ WORKDIR /app
 # Copy backend files
 COPY --from=backend-builder /app/backend ./
 # Install production dependencies only
-RUN npm ci --only=production
+RUN npm install --only=production
 EXPOSE 3000
 CMD ["node", "src/server.js"]

@@ -1,0 +1,14 @@
+{
+  "name": "family-crm",
+  "version": "1.0.0",
+  "description": "Family Gift & Relationship Tracker",
+  "private": true,
+  "scripts": {
+    "test": "cd backend && npm test",
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "logs": "docker compose logs -f",
+    "restart": "docker compose restart"
+  }
+}
+
