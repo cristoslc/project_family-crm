@@ -1,0 +1,295 @@
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import apiClient from '../services/api'
+import './GiftForm.css'
+
+function LogGiftReceived() {
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    event_id: '',
+    giver_type: 'person',
+    giver_person_id: '',
+    giver_household_id: '',
+    receiver_person_id: '',
+    description: '',
+    est_value: '',
+    given_date: '',
+    notes: '',
+    thank_you_sent: false
+  })
+  const [events, setEvents] = useState([])
+  const [people, setPeople] = useState([])
+  const [households, setHouseholds] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [saveAndAdd, setSaveAndAdd] = useState(false)
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    try {
+      const [eventsRes, peopleRes, householdsRes] = await Promise.all([
+        apiClient.get('/events'),
+        apiClient.get('/people'),
+        apiClient.get('/households')
+      ])
+      setEvents(eventsRes.data.data || [])
+      setPeople(peopleRes.data.data || [])
+      setHouseholds(householdsRes.data.data || [])
+    } catch (error) {
+      console.error('Failed to load data:', error)
+    }
+  }
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const giftData = {
+        direction: 'in',
+        event_id: formData.event_id || null,
+        description: formData.description,
+        est_value: formData.est_value ? parseFloat(formData.est_value) : null,
+        given_date: formData.given_date || null,
+        notes: formData.notes || null,
+        thank_you_sent: formData.thank_you_sent
+      }
+
+      if (formData.giver_type === 'person') {
+        giftData.giver_person_id = formData.giver_person_id || null
+      } else {
+        giftData.giver_household_id = formData.giver_household_id || null
+      }
+
+      giftData.receiver_person_id = formData.receiver_person_id || null
+
+      await apiClient.post('/gifts', giftData)
+
+      if (saveAndAdd) {
+        // Reset form but keep event
+        setFormData(prev => ({
+          ...prev,
+          giver_person_id: '',
+          giver_household_id: '',
+          receiver_person_id: '',
+          description: '',
+          est_value: '',
+          given_date: '',
+          notes: '',
+          thank_you_sent: false
+        }))
+        setLoading(false)
+      } else {
+        navigate('/gifts')
+      }
+    } catch (error) {
+      alert('Failed to save gift: ' + (error.response?.data?.error || error.message))
+      setLoading(false)
+    }
+  }
+
+  const presetValues = [10, 25, 50, 100, 250, 500]
+
+  return (
+    <div className="page-container">
+      <div className="page-header">
+        <h1>Log Gift Received</h1>
+      </div>
+
+      <form onSubmit={handleSubmit} className="gift-form">
+        <div className="form-group">
+          <label>Event</label>
+          <select
+            name="event_id"
+            value={formData.event_id}
+            onChange={handleChange}
+            className="form-input"
+          >
+            <option value="">Select event...</option>
+            {events.map(event => (
+              <option key={event.id} value={event.id}>{event.name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Giver Type</label>
+          <div className="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="giver_type"
+                value="person"
+                checked={formData.giver_type === 'person'}
+                onChange={handleChange}
+              />
+              Person
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="giver_type"
+                value="household"
+                checked={formData.giver_type === 'household'}
+                onChange={handleChange}
+              />
+              Household
+            </label>
+          </div>
+        </div>
+
+        {formData.giver_type === 'person' ? (
+          <div className="form-group">
+            <label>Giver (Person)</label>
+            <select
+              name="giver_person_id"
+              value={formData.giver_person_id}
+              onChange={handleChange}
+              className="form-input"
+            >
+              <option value="">Select person...</option>
+              {people.map(person => (
+                <option key={person.id} value={person.id}>{person.display_name}</option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <div className="form-group">
+            <label>Giver (Household)</label>
+            <select
+              name="giver_household_id"
+              value={formData.giver_household_id}
+              onChange={handleChange}
+              className="form-input"
+            >
+              <option value="">Select household...</option>
+              {households.map(household => (
+                <option key={household.id} value={household.id}>{household.name}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        <div className="form-group">
+          <label>Receiver</label>
+          <select
+            name="receiver_person_id"
+            value={formData.receiver_person_id}
+            onChange={handleChange}
+            className="form-input"
+          >
+            <option value="">Select receiver...</option>
+            {people.map(person => (
+              <option key={person.id} value={person.id}>{person.display_name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Description *</label>
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            className="form-input"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Estimated Value</label>
+          <div className="preset-buttons">
+            {presetValues.map(value => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setFormData(prev => ({ ...prev, est_value: value }))}
+                className={`preset-btn ${formData.est_value == value ? 'active' : ''}`}
+              >
+                ${value}
+              </button>
+            ))}
+          </div>
+          <input
+            type="number"
+            name="est_value"
+            value={formData.est_value}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="Custom amount"
+            step="0.01"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Date Given</label>
+          <input
+            type="date"
+            name="given_date"
+            value={formData.given_date}
+            onChange={handleChange}
+            className="form-input"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Notes</label>
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            className="form-input"
+            rows="3"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>
+            <input
+              type="checkbox"
+              name="thank_you_sent"
+              checked={formData.thank_you_sent}
+              onChange={handleChange}
+            />
+            Thank you sent
+          </label>
+        </div>
+
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={() => {
+              setSaveAndAdd(true)
+              handleSubmit({ preventDefault: () => {} })
+            }}
+            className="btn-secondary"
+            disabled={loading}
+          >
+            Save & Add Another
+          </button>
+          <button
+            type="submit"
+            onClick={() => setSaveAndAdd(false)}
+            className="btn-primary"
+            disabled={loading}
+          >
+            {loading ? 'Saving...' : 'Save & Done'}
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default LogGiftReceived
