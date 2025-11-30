@@ -82,11 +82,21 @@
 - [x] README documentation
 - [x] Docker configuration complete
 
+### Phase 1.10: Data Migration 📊 (In Progress)
+- [ ] Pull down existing spreadsheets
+- [ ] Analyze spreadsheet structure and format
+- [ ] Prepare data for import (clean, normalize, map fields)
+- [ ] Import people and households via API
+- [ ] Import historical gifts via API
+- [ ] Validate data integrity
+- [ ] Test relationships and calculations
+- [ ] Verify household summary accuracy
+
 ## Current Status
 
-**Phase**: Phase 1 Complete - Full Implementation Done ✅
+**Phase**: Phase 1 Complete - Ready for Data Migration 📊
 
-**Status**: All core features implemented and ready for testing. The application includes:
+**Status**: All core features implemented and tested. The application includes:
 - Complete backend API with all CRUD operations
 - Full frontend UI with all screens
 - Database schema and initialization
@@ -95,9 +105,13 @@
 - Mobile-responsive design
 
 **Next Steps**: 
-- Test the application with `docker compose up -d`
-- Verify all features work as expected
-- Add sample data for testing
+- **Data Migration Phase**: Pull down spreadsheets and migrate historical data
+  - Analyze spreadsheet structure
+  - Prepare data for import (clean, normalize, map fields)
+  - Import people/households via `POST /api/import/people`
+  - Import historical gifts via `POST /api/import/gifts`
+  - Validate data integrity after import
+  - Test all relationships and calculations
 
 ## Known Issues
 

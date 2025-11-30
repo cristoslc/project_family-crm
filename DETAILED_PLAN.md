@@ -794,6 +794,36 @@ CMD ["node", "src/server.js"]
 - [ ] Form auto-save (localStorage)
 - [ ] README documentation
 
+### Phase 1.10: Data Migration
+- [ ] Pull down existing spreadsheets with historical data
+- [ ] Analyze spreadsheet structure and format
+- [ ] Document data mapping (spreadsheet columns → API fields)
+- [ ] Prepare data for import:
+  - Clean and normalize data
+  - Handle missing fields
+  - Resolve name inconsistencies
+  - Map event names to existing events
+- [ ] Import people and households via `POST /api/import/people`
+- [ ] Import historical gifts via `POST /api/import/gifts`
+- [ ] Validate data integrity:
+  - Verify all people imported correctly
+  - Check household assignments
+  - Validate gift records (dates, values, relationships)
+  - Test household summary calculations
+  - Ensure event associations are correct
+- [ ] Fix any data issues discovered during validation
+- [ ] Document migration process and any data transformations
+
+**Migration Strategy**:
+1. Start with people/households import (foundation data)
+2. Then import gifts (depends on people/households existing)
+3. Validate relationships and calculations
+4. Test UI with real data
+
+**Import API Endpoints**:
+- `POST /api/import/people` - Bulk import people and households
+- `POST /api/import/gifts` - Bulk import gifts with auto-create logic
+
 ---
 
 ## File Structure
@@ -911,5 +941,11 @@ family-crm/
 
 ---
 
-**Next Steps**: Begin implementation with Phase 1.1 (Project Setup).
+**Current Status**: Phase 1.1-1.9 Complete ✅
+
+**Next Steps**: Phase 1.10 - Data Migration from Spreadsheets 📊
+1. Pull down existing spreadsheets
+2. Analyze and prepare data for import
+3. Import people/households and historical gifts
+4. Validate data integrity and relationships
 
