@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Default values
-API_BASE="${API_BASE:-http://localhost:8080/api}"
+API_BASE="${API_BASE:-http://localhost:3001/api}"
 API_KEY="${API_KEY:-change-me-in-production}"
 
 # Allow override via command line args

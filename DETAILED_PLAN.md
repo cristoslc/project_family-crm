@@ -209,7 +209,7 @@ CREATE INDEX idx_cards_status ON cards(status);
 ## API Specification
 
 ### Base URL
-- Development: `http://localhost:8080`
+- Development: `http://localhost:3001`
 - API prefix: `/api`
 
 ### Authentication
@@ -673,7 +673,7 @@ services:
       dockerfile: Dockerfile
     container_name: family-crm-app
     ports:
-      - "8080:3000"
+      - "3001:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
@@ -935,7 +935,7 @@ family-crm/
 
 ### Docker Setup
 - `docker compose up -d` to start
-- App available at `http://localhost:8080`
+- App available at `http://localhost:3001`
 - Database persists in Docker volume
 - Environment variables in docker-compose.yml
 

@@ -4,12 +4,12 @@
  * Test Suite for Family CRM API
  * 
  * Run with: npm test
- * Requires API to be running on http://localhost:8080
+ * Requires API to be running on http://localhost:3001
  */
 
 import axios from 'axios'
 
-const API_BASE = process.env.API_BASE || 'http://localhost:8080/api'
+const API_BASE = process.env.API_BASE || 'http://localhost:3001/api'
 const API_KEY = process.env.API_KEY || 'change-me-in-production'
 
 // Test results tracking

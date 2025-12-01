@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: family-crm-app
     ports:
-      - "8080:3000"
+      - "3001:3000"
     environment:
       NODE_ENV: production
       PORT: 3000

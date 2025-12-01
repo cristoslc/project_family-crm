@@ -50,8 +50,8 @@ This is an experimental application focused on:
    ```
 
 2. **Access the application**:
-   - Frontend: http://localhost:8080
-   - API Health Check: http://localhost:8080/api/health
+   - Frontend: http://localhost:3001
+   - API Health Check: http://localhost:3001/api/health
 
 3. **Stop the application**:
    ```bash

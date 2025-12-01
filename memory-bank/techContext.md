@@ -45,7 +45,7 @@
 
 ## Port Configuration
 
-- **Host Port**: 8080 (exposed to host)
+- **Host Port**: 3001 (exposed to host)
 - **Container Port**: 3000 (internal)
 - **Database Port**: 5432 (internal only, not exposed)
 

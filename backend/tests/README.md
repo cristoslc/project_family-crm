@@ -9,7 +9,7 @@ Comprehensive test suite for the Family CRM API endpoints.
    docker compose up -d
    ```
 
-2. The API should be accessible at `http://localhost:8080`
+2. The API should be accessible at `http://localhost:3001`
 
 3. Install test dependencies:
    ```bash
@@ -49,12 +49,12 @@ cd backend
 
 You can customize the test configuration with environment variables:
 
-- `API_BASE`: API base URL (default: `http://localhost:8080/api`)
+- `API_BASE`: API base URL (default: `http://localhost:3001/api`)
 - `API_KEY`: API key for authentication (default: `change-me-in-production`)
 
 Example:
 ```bash
-API_BASE=http://localhost:8080/api API_KEY=my-secret-key npm test
+API_BASE=http://localhost:3001/api API_KEY=my-secret-key npm test
 ```
 
 ## Test Coverage
@@ -130,7 +130,7 @@ Example output:
 
 ### Tests fail with connection errors
 - Ensure Docker containers are running: `docker compose ps`
-- Check API is accessible: `curl http://localhost:8080/api/health`
+- Check API is accessible: `curl http://localhost:3001/api/health`
 
 ### Tests fail with authentication errors
 - Verify API_KEY matches the one in `docker-compose.yml`
