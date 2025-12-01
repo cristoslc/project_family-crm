@@ -1,17 +1,17 @@
 .year-selector {
   padding: 0.875rem 1.5rem;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   transition: all 0.2s;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .year-selector:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .year-selector:hover:not(:focus) {
@@ -25,17 +25,25 @@
 }
 
 .summary-item {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.05);
-  transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.75rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .summary-item:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.2);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 1);
+}
+
+.summary-item:active {
+  transform: scale(0.98);
 }
 
 .summary-header {

@@ -102,9 +102,16 @@ function GiftsList() {
 
       <div className="list-container">
         {loading ? (
-          <div className="empty-state">Loading...</div>
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p>Loading gifts...</p>
+          </div>
         ) : gifts.length === 0 ? (
-          <div className="empty-state">No gifts found</div>
+          <div className="empty-state">
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎁</div>
+            <p>No gifts found</p>
+            <p style={{ fontSize: '0.9rem', marginTop: '0.5rem', opacity: 0.7 }}>Try adjusting your filters</p>
+          </div>
         ) : (
           gifts.map(gift => (
             <div key={gift.id} className="gift-item">

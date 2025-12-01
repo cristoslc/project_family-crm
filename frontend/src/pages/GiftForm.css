@@ -1,11 +1,13 @@
 .gift-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   max-width: 600px;
   margin: 0 auto;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .form-group {
@@ -14,9 +16,10 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.625rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: #1a202c;
+  font-size: 0.95rem;
 }
 
 .form-input {
@@ -30,10 +33,72 @@
   background-color: #fff;
 }
 
+/* Card grid selector for mobile */
+.card-selector {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  select.form-input {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    opacity: 0 !important;
+  }
+  
+  .card-selector {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.875rem !important;
+    margin-top: 0.5rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .card-selector-item {
+    padding: 1.125rem 0.875rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid #e0e0e0;
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #1a202c;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-selector-item:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  .card-selector-item.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    font-weight: 600;
+  }
+  
+  .card-selector-item:active {
+    transform: scale(0.95);
+  }
+}
+
 .form-input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .form-input:hover:not(:focus) {
@@ -42,19 +107,45 @@
 
 .radio-group {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .radio-group label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: normal;
+  gap: 0.625rem;
+  font-weight: 500;
   cursor: pointer;
+  padding: 0.875rem 1.25rem;
+  border-radius: 10px;
+  transition: all 0.2s;
+  user-select: none;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.radio-group label:hover {
+  background: rgba(102, 126, 234, 0.08);
 }
 
 .radio-group input[type="radio"] {
-  width: auto;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+  margin: 0;
+}
+
+.radio-group label:has(input[type="radio"]:checked) {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+  color: #667eea;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .preset-buttons {
@@ -76,17 +167,17 @@
 }
 
 .preset-btn:hover {
-  border-color: #3498db;
-  color: #3498db;
-  background-color: rgba(52, 152, 219, 0.05);
+  border-color: #667eea;
+  color: #667eea;
+  background-color: rgba(102, 126, 234, 0.08);
   transform: translateY(-1px);
 }
 
 .preset-btn.active {
-  background: #3498db;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-color: #3498db;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .form-actions {
@@ -109,15 +200,14 @@
 }
 
 .btn-primary {
-  background: #3498db;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #2980b9;
-  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -148,10 +238,79 @@
 
 @media (max-width: 768px) {
   .gift-form {
-    padding: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .form-group {
+    margin-bottom: 2rem;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+    margin-bottom: 0.875rem;
+    font-weight: 600;
+    color: #1a202c;
+  }
+  
+  .form-input {
+    padding: 1.125rem 1rem;
+    font-size: 1rem;
+    border-radius: 14px;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .radio-group {
+    gap: 0.875rem;
+    padding: 0.625rem;
+  }
+  
+  .radio-group label {
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    min-height: 52px;
+  }
+  
+  .preset-buttons {
+    gap: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  .preset-btn {
+    padding: 1rem 1.75rem;
+    min-height: 48px;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 600;
+  }
+  
+  .preset-btn:active {
+    transform: scale(0.95);
   }
   
   .form-actions {
     flex-direction: column;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 1.125rem 1.75rem;
+    min-height: 56px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 600;
+  }
+  
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.97);
   }
 }

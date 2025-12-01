@@ -120,6 +120,37 @@ function LogGiftReceived() {
               <option key={event.id} value={event.id}>{event.name}</option>
             ))}
           </select>
+          <div className="card-selector">
+            <div
+              className={`card-selector-item ${formData.event_id === '' ? 'selected' : ''}`}
+              onClick={() => {
+                const select = document.querySelector('select[name="event_id"]')
+                if (select) {
+                  select.value = ''
+                  select.dispatchEvent(new Event('change', { bubbles: true }))
+                }
+                setFormData(prev => ({ ...prev, event_id: '' }))
+              }}
+            >
+              None
+            </div>
+            {events.map(event => (
+              <div
+                key={event.id}
+                className={`card-selector-item ${formData.event_id === event.id.toString() ? 'selected' : ''}`}
+                onClick={() => {
+                  const select = document.querySelector('select[name="event_id"]')
+                  if (select) {
+                    select.value = event.id.toString()
+                    select.dispatchEvent(new Event('change', { bubbles: true }))
+                  }
+                  setFormData(prev => ({ ...prev, event_id: event.id.toString() }))
+                }}
+              >
+                {event.name}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="form-group">
@@ -162,6 +193,37 @@ function LogGiftReceived() {
                 <option key={person.id} value={person.id}>{person.display_name}</option>
               ))}
             </select>
+            <div className="card-selector">
+              <div
+                className={`card-selector-item ${formData.giver_person_id === '' ? 'selected' : ''}`}
+                onClick={() => {
+                  const select = document.querySelector('select[name="giver_person_id"]')
+                  if (select) {
+                    select.value = ''
+                    select.dispatchEvent(new Event('change', { bubbles: true }))
+                  }
+                  setFormData(prev => ({ ...prev, giver_person_id: '' }))
+                }}
+              >
+                None
+              </div>
+              {people.map(person => (
+                <div
+                  key={person.id}
+                  className={`card-selector-item ${formData.giver_person_id === person.id.toString() ? 'selected' : ''}`}
+                  onClick={() => {
+                    const select = document.querySelector('select[name="giver_person_id"]')
+                    if (select) {
+                      select.value = person.id.toString()
+                      select.dispatchEvent(new Event('change', { bubbles: true }))
+                    }
+                    setFormData(prev => ({ ...prev, giver_person_id: person.id.toString() }))
+                  }}
+                >
+                  {person.display_name}
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <div className="form-group">
@@ -177,6 +239,37 @@ function LogGiftReceived() {
                 <option key={household.id} value={household.id}>{household.name}</option>
               ))}
             </select>
+            <div className="card-selector">
+              <div
+                className={`card-selector-item ${formData.giver_household_id === '' ? 'selected' : ''}`}
+                onClick={() => {
+                  const select = document.querySelector('select[name="giver_household_id"]')
+                  if (select) {
+                    select.value = ''
+                    select.dispatchEvent(new Event('change', { bubbles: true }))
+                  }
+                  setFormData(prev => ({ ...prev, giver_household_id: '' }))
+                }}
+              >
+                None
+              </div>
+              {households.map(household => (
+                <div
+                  key={household.id}
+                  className={`card-selector-item ${formData.giver_household_id === household.id.toString() ? 'selected' : ''}`}
+                  onClick={() => {
+                    const select = document.querySelector('select[name="giver_household_id"]')
+                    if (select) {
+                      select.value = household.id.toString()
+                      select.dispatchEvent(new Event('change', { bubbles: true }))
+                    }
+                    setFormData(prev => ({ ...prev, giver_household_id: household.id.toString() }))
+                  }}
+                >
+                  {household.name}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -193,6 +286,37 @@ function LogGiftReceived() {
               <option key={person.id} value={person.id}>{person.display_name}</option>
             ))}
           </select>
+          <div className="card-selector">
+            <div
+              className={`card-selector-item ${formData.receiver_person_id === '' ? 'selected' : ''}`}
+              onClick={() => {
+                const select = document.querySelector('select[name="receiver_person_id"]')
+                if (select) {
+                  select.value = ''
+                  select.dispatchEvent(new Event('change', { bubbles: true }))
+                }
+                setFormData(prev => ({ ...prev, receiver_person_id: '' }))
+              }}
+            >
+              None
+            </div>
+            {people.map(person => (
+              <div
+                key={person.id}
+                className={`card-selector-item ${formData.receiver_person_id === person.id.toString() ? 'selected' : ''}`}
+                onClick={() => {
+                  const select = document.querySelector('select[name="receiver_person_id"]')
+                  if (select) {
+                    select.value = person.id.toString()
+                    select.dispatchEvent(new Event('change', { bubbles: true }))
+                  }
+                  setFormData(prev => ({ ...prev, receiver_person_id: person.id.toString() }))
+                }}
+              >
+                {person.display_name}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="form-group">

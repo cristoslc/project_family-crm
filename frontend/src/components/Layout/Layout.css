@@ -2,7 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
 }
 
 .main-content {
@@ -10,6 +11,7 @@
   padding-top: 0;
   padding-bottom: 80px; /* Space for tab bar on mobile */
   min-height: calc(100vh - 60px); /* Account for navbar */
+  -webkit-overflow-scrolling: touch; /* Native iOS scrolling */
 }
 
 @media (min-width: 769px) {
@@ -17,5 +19,11 @@
     padding-top: 0;
     padding-bottom: 0;
     min-height: calc(100vh - 60px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: 95px; /* More space for prominent tab bar */
   }
 }

@@ -29,7 +29,14 @@ function PeopleList() {
   )
 
   if (loading) {
-    return <div className="page-container">Loading...</div>
+    return (
+      <div className="page-container">
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Loading people...</p>
+        </div>
+      </div>
+    )
   }
 
   return (

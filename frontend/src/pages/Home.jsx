@@ -31,6 +31,17 @@ function Home() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="page-container">
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Loading stats...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="home">
       <div className="home-header">
@@ -57,22 +68,20 @@ function Home() {
         </Link>
       </div>
 
-      {!loading && (
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-value">{stats.giftsReceived}</div>
-            <div className="stat-label">Gifts Received</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-value">{stats.giftsGiven}</div>
-            <div className="stat-label">Gifts Given</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-value">{stats.cardsPlanned}</div>
-            <div className="stat-label">Cards Planned</div>
-          </div>
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="stat-value">{stats.giftsReceived}</div>
+          <div className="stat-label">Gifts Received</div>
         </div>
-      )}
+        <div className="stat-card">
+          <div className="stat-value">{stats.giftsGiven}</div>
+          <div className="stat-label">Gifts Given</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{stats.cardsPlanned}</div>
+          <div className="stat-label">Cards Planned</div>
+        </div>
+      </div>
     </div>
   )
 }
